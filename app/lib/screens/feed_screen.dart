@@ -31,7 +31,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {},
@@ -57,10 +57,13 @@ class _FeedScreenState extends State<FeedScreen> {
               onPressed: () {},
               tooltip: "Messages",
             ),
+            IconButton(
+              icon: Icon(Icons.nature),
+              onPressed: () {},
+              tooltip: "Something else",
+            ),
           ],
         ),
-        
-
       ),
       appBar: AppBar(),
       body: FutureBuilder<List<FeedPost>>(
@@ -72,7 +75,7 @@ class _FeedScreenState extends State<FeedScreen> {
               itemBuilder: (context, index) {
                 return Card(
                   child: ListTile(
-                    title: Text(snapshot.data[index].title),
+                    title: Text(snapshot.data[index].author),
                     subtitle: Text(snapshot.data[index].description),
                     leading: FlutterLogo(),
                   ),
@@ -83,7 +86,7 @@ class _FeedScreenState extends State<FeedScreen> {
           if (snapshot.hasError) {
             return Text("${snapshot.error}");
           }
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         },
       ),
     );
