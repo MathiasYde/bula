@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:aula/components/navigation_bar.dart';
+import 'package:aula/components/quick_actions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:http/http.dart' as http;
 
 class FeedScreen extends StatefulWidget {
@@ -30,42 +33,13 @@ class _FeedScreenState extends State<FeedScreen> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {},
+    print("Building feed screen");
+    var scaffold = Scaffold(
+      floatingActionButton: QuickActions(),
+      bottomNavigationBar: NavigationBar(),
+      appBar: AppBar(
+        leading: Image.asset("assets/logo/bula-logo-white.png")
       ),
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              icon: Icon(Icons.home),
-              onPressed: () {},
-              tooltip: "Overblik",
-            ),
-            IconButton(
-              icon: Icon(Icons.calendar_today),
-              onPressed: () {},
-              tooltip: "Kalender",
-            ),
-            IconButton(
-              icon: Icon(Icons.message),
-              onPressed: () {},
-              tooltip: "Messages",
-            ),
-            IconButton(
-              icon: Icon(Icons.nature),
-              onPressed: () {},
-              tooltip: "Something else",
-            ),
-          ],
-        ),
-      ),
-      appBar: AppBar(),
       body: FutureBuilder<List<FeedPost>>(
         future: feedPosts,
         builder: (context, snapshot) {
@@ -73,21 +47,52 @@ class _FeedScreenState extends State<FeedScreen> {
             return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
-                    title: Text(snapshot.data[index].author),
-                    subtitle: Text(snapshot.data[index].description),
-                    leading: FlutterLogo(),
-                  ),
+                return FeedPostCard(
+                  index: index,
+                  data: snapshot.data[index],
                 );
               },
             );
           }
           if (snapshot.hasError) {
-            return Text("${snapshot.error}");
+            return Center(child: Text("${snapshot.error}"));
           }
           return Center(child: CircularProgressIndicator());
         },
+      ),
+    );
+    return scaffold;
+  }
+}
+
+class FeedPostCard extends StatelessWidget {
+  final int index;
+  final FeedPost data;
+
+  const FeedPostCard({
+    Key key,
+    this.data,
+    this.index,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        title: Text(data.author),
+        subtitle: Text(data.description),
+        leading: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage(
+                  "assets/fake-faces/fakeface-${''.padLeft(index.toString().length + 1, '0')}${(index + 1) % 20}.jpg",
+                ),
+              )),
+        ),
       ),
     );
   }
