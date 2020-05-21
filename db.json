@@ -1,52 +1,98 @@
 {
   "posts": [{
-      "author": "Sebastian H. Klausen",
+      "author": {
+        "firstname": "Sebastian",
+        "lastname": "Klausen",
+        "photo": "fakeface-004"
+      },
       "title": "Lorem ipsum dolor sit amet",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     {
-      "author": "Anders R. Schultz",
+      "author": {
+        "firstname": "Anders",
+        "lastname": "Schultz",
+        "photo": "fakeface-011"
+      },
       "title": "Lorem ipsum dolor sit amet",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     {
-      "author": "Philip V. Damgaard",
+      "author": {
+        "firstname": "Philip",
+        "lastname": "Damgaard",
+        "photo": "fakeface-009"
+      },
       "title": "Lorem ipsum dolor sit amet",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     {
-      "author": "Peter L. Frandsen",
+      "author": {
+        "firstname": "Malene",
+        "lastname": "Jakobsen",
+        "photo": "fakeface-001"
+      },
       "title": "Lorem ipsum dolor sit amet",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     {
-      "author": "Oskar O. Gregersen",
+      "author": {
+        "firstname": "Cecilie",
+        "lastname": "Poulsen",
+        "photo": "fakeface-006"
+      },
       "title": "Lorem ipsum dolor sit amet",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     }
   ],
+
+
+
+
+
+
   "messages": [{
-      "author": "Oskar O. Gregersen",
+      "author": {
+        "firstname": "Cecilie",
+        "lastname": "Poulsen",
+        "photo": "fakeface-006"
+      },
       "title": "Lorem ipsum dolor sit amet",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     {
-      "author": "Peter L. Frandsen",
+      "author": {
+        "firstname": "Malene",
+        "lastname": "Jakobsen",
+        "photo": "fakeface-001"
+      },
       "title": "Lorem ipsum dolor sit amet",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     {
-      "author": "Sebastian H. Klausen",
+      "author": {
+        "firstname": "Sebastian",
+        "lastname": "Klausen",
+        "photo": "fakeface-004"
+      },
       "title": "Lorem ipsum dolor sit amet",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     {
-      "author": "Anders R. Schultz",
+      "author": {
+        "firstname": "Anders",
+        "lastname": "Schultz",
+        "photo": "fakeface-011"
+      },
       "title": "Lorem ipsum dolor sit amet",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     {
-      "author": "Philip V. Damgaard",
+      "author": {
+        "firstname": "Philip",
+        "lastname": "Damgaard",
+        "photo": "fakeface-009"
+      },
       "title": "Lorem ipsum dolor sit amet",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     }

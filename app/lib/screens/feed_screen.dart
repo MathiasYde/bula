@@ -1,10 +1,11 @@
 import 'dart:convert';
 
-import 'package:aula/components/app_bar.dart';
-import 'package:aula/components/navigation_bar.dart';
-import 'package:aula/components/quick_actions.dart';
+import 'package:aula/data/person.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import 'package:aula/components/app_bar.dart';
+import 'package:aula/components/quick_actions.dart';
 
 class FeedScreen extends StatefulWidget {
   @override
@@ -34,30 +35,25 @@ class _FeedScreenState extends State<FeedScreen> {
 
   Widget build(BuildContext context) {
     print("Building feed screen");
-    return Scaffold(
-      floatingActionButton: QuickActions(),
-      bottomNavigationBar: NavigationBar(),
-      appBar: BulaAppBar(),
-      body: FutureBuilder<List<FeedPost>>(
-        future: feedPosts,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data.length,
-              itemBuilder: (context, index) {
-                return FeedPostCard(
-                  index: index,
-                  data: snapshot.data[index],
-                );
-              },
-            );
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text("${snapshot.error}"));
-          }
-          return Center(child: CircularProgressIndicator());
-        },
-      ),
+    return FutureBuilder<List<FeedPost>>(
+      future: feedPosts,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView.builder(
+            itemCount: snapshot.data.length,
+            itemBuilder: (context, index) {
+              return FeedPostCard(
+                index: index,
+                data: snapshot.data[index],
+              );
+            },
+          );
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text("${snapshot.error}"));
+        }
+        return Center(child: CircularProgressIndicator());
+      },
     );
   }
 }
@@ -99,8 +95,41 @@ class FeedPostCard extends StatelessWidget {
   }
 }
 
+class Post extends StatelessWidget {
+  final FeedPost data;
+  const Post({
+    Key key,
+    this.data,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Hero(
+      tag: "",
+      child: ListTile(
+        title: Text(data.title),
+        subtitle: Text(data.description),
+        leading: Tooltip(
+          message: "bitch",
+          child: Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: data.author.avatar,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class FeedPost {
-  String author;
+  Person author;
   String title;
   String description;
 

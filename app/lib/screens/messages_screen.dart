@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:aula/components/app_bar.dart';
-import 'package:aula/components/navigation_bar.dart';
 import 'package:aula/components/quick_actions.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -35,30 +34,26 @@ class _MessagesScreenState extends State<MessagesScreen> {
   @override
   Widget build(BuildContext context) {
     print("Building messages screen");
-    return Scaffold(
-        floatingActionButton: QuickActions(),
-        bottomNavigationBar: NavigationBar(),
-        appBar: BulaAppBar(),
-        body: FutureBuilder<List<Message>>(
-          future: messages,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index) {
-                  return MessageCard(
-                    index: index,
-                    data: snapshot.data[index],
-                  );
-                },
+    return FutureBuilder<List<Message>>(
+      future: messages,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView.builder(
+            itemCount: snapshot.data.length,
+            itemBuilder: (context, index) {
+              return MessageCard(
+                index: index,
+                data: snapshot.data[index],
               );
-            }
-            if (snapshot.hasError) {
-              return Center(child: Text("${snapshot.error}"));
-            }
-            return Center(child: CircularProgressIndicator());
-          },
-        ));
+            },
+          );
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text("${snapshot.error}"));
+        }
+        return Center(child: CircularProgressIndicator());
+      },
+    );
   }
 }
 
