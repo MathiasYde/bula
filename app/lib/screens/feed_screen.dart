@@ -24,6 +24,8 @@ class _FeedScreenState extends State<FeedScreen> {
   }
 
   Future<void> onRefresh() async {
+    await Future.delayed(Duration(seconds: 2));
+
     setState(() {
       feedPosts = fetchFeed();
     });
