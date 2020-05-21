@@ -35,7 +35,6 @@ class _MessagesScreenState extends State<MessagesScreen> {
   @override
   Widget build(BuildContext context) {
     print("Building messages screen");
-    return Container();
     return FutureBuilder<List<Message>>(
       future: messages,
       builder: (context, snapshot) {

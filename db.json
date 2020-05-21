@@ -52,7 +52,8 @@
 
 
 
-  "messages": [{
+  "messages": [
+    {
       "author": {
         "firstname": "Cecilie",
         "lastname": "Poulsen",

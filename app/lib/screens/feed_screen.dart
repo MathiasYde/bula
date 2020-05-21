@@ -23,6 +23,12 @@ class _FeedScreenState extends State<FeedScreen> {
     }
   }
 
+  Future<void> onRefresh() async {
+    setState(() {
+      feedPosts = fetchFeed();
+    });
+  }
+
   Future<List<FeedPost>> feedPosts;
 
   @override
@@ -37,14 +43,17 @@ class _FeedScreenState extends State<FeedScreen> {
       future: feedPosts,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return ListView.builder(
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index) {
-              return FeedPostCard(
-                index: index,
-                post: snapshot.data[index],
-              );
-            },
+          return RefreshIndicator(
+            onRefresh: onRefresh,
+            child: ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                return FeedPostCard(
+                  index: index,
+                  post: snapshot.data[index],
+                );
+              },
+            ),
           );
         }
         if (snapshot.hasError) {
@@ -108,7 +117,9 @@ class Post extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BulaAppBar(),
+      appBar: BulaAppBar(
+        showActions: false,
+      ),
       body: ListTile(
         title: Text(post.title),
         subtitle: Text(post.description),

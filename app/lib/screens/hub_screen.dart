@@ -43,7 +43,7 @@ class _HubScreenState extends State<HubScreen> {
         index: pageIndex,
         children: [
           FeedScreen(),
-          Container(color: Colors.orange),
+          Center(child: Text("Not implemented yet :)")),
           MessagesScreen(),
         ],
       ),
