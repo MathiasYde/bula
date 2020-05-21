@@ -1,11 +1,9 @@
 import 'dart:convert';
 
+import 'package:aula/components/app_bar.dart';
 import 'package:aula/data/person.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:aula/components/app_bar.dart';
-import 'package:aula/components/quick_actions.dart';
 
 class FeedScreen extends StatefulWidget {
   @override
@@ -18,7 +16,7 @@ class _FeedScreenState extends State<FeedScreen> {
         .get("https://my-json-server.typicode.com/MathiasYde/bula/posts");
 
     if (response.statusCode == 200) {
-      List<dynamic> parsed = json.decode(response.body);
+      List<dynamic> parsed = jsonDecode(response.body);
       return parsed.map((e) => FeedPost.fromJson(e)).toList();
     } else {
       throw Exception("Failed to fetch feed");
@@ -44,13 +42,13 @@ class _FeedScreenState extends State<FeedScreen> {
             itemBuilder: (context, index) {
               return FeedPostCard(
                 index: index,
-                data: snapshot.data[index],
+                post: snapshot.data[index],
               );
             },
           );
         }
         if (snapshot.hasError) {
-          return Center(child: Text("${snapshot.error}"));
+          return Center(child: Text("feed screen \n\n${snapshot.error}"));
         }
         return Center(child: CircularProgressIndicator());
       },
@@ -60,11 +58,11 @@ class _FeedScreenState extends State<FeedScreen> {
 
 class FeedPostCard extends StatelessWidget {
   final int index;
-  final FeedPost data;
+  final FeedPost post;
 
   const FeedPostCard({
     Key key,
-    this.data,
+    this.post,
     this.index,
   }) : super(key: key);
 
@@ -72,19 +70,24 @@ class FeedPostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        title: Text(data.title),
-        subtitle: Text(data.description),
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => Post(post: post)));
+        },
+        title: Text(post.title),
+        subtitle: Text(post.description),
         leading: Tooltip(
-          message: "${data.author}",
-          child: Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage(
-                  "assets/fake-faces/fakeface-${''.padLeft(index.toString().length + 1, '0')}${(index + 1) % 20}.jpg",
+          message: "${post.author.fullname}",
+          child: Hero(
+            tag: "${post.author.fullname}",
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: post.author.avatar,
                 ),
               ),
             ),
@@ -96,29 +99,32 @@ class FeedPostCard extends StatelessWidget {
 }
 
 class Post extends StatelessWidget {
-  final FeedPost data;
+  final FeedPost post;
   const Post({
     Key key,
-    this.data,
+    this.post,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: "",
-      child: ListTile(
-        title: Text(data.title),
-        subtitle: Text(data.description),
+    return Scaffold(
+      appBar: BulaAppBar(),
+      body: ListTile(
+        title: Text(post.title),
+        subtitle: Text(post.description),
         leading: Tooltip(
-          message: "bitch",
-          child: Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: data.author.avatar,
+          message: "${post.author.fullname}",
+          child: Hero(
+            tag: "${post.author.fullname}",
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: post.author.avatar,
+                ),
               ),
             ),
           ),
@@ -136,7 +142,7 @@ class FeedPost {
   FeedPost({this.author, this.title, this.description});
 
   FeedPost.fromJson(Map<String, dynamic> data)
-      : author = data["author"],
+      : author = Person.fromJson(data["author"]),
         title = data["title"],
         description = data["description"];
 

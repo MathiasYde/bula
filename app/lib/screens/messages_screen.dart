@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:aula/components/app_bar.dart';
 import 'package:aula/components/quick_actions.dart';
+import 'package:aula/data/person.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -34,6 +35,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
   @override
   Widget build(BuildContext context) {
     print("Building messages screen");
+    return Container();
     return FutureBuilder<List<Message>>(
       future: messages,
       builder: (context, snapshot) {
@@ -49,7 +51,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
           );
         }
         if (snapshot.hasError) {
-          return Center(child: Text("${snapshot.error}"));
+          return Center(child: Text("messages screen: \n\n${snapshot.error}"));
         }
         return Center(child: CircularProgressIndicator());
       },
@@ -82,9 +84,7 @@ class MessageCard extends StatelessWidget {
               shape: BoxShape.circle,
               image: DecorationImage(
                 fit: BoxFit.fill,
-                image: AssetImage(
-                  "assets/fake-faces/fakeface-${''.padLeft(index.toString().length + 1, '0')}${(index + 1) % 20}.jpg",
-                ),
+                image: data.author.avatar,
               ),
             ),
           ),
@@ -95,14 +95,14 @@ class MessageCard extends StatelessWidget {
 }
 
 class Message {
-  String author;
+  Person author;
   String title;
   String description;
 
   Message({this.author, this.title, this.description});
 
   Message.fromJson(Map<String, dynamic> data)
-      : author = data["author"],
+      : author = Person.fromJson(data["author"]),
         title = data["title"],
         description = data["description"];
 

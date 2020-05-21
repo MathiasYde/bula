@@ -1,5 +1,6 @@
 {
-  "posts": [{
+  "posts": [
+    {
       "author": {
         "firstname": "Sebastian",
         "lastname": "Klausen",
