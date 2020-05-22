@@ -6,6 +6,7 @@ import 'package:aula/components/quality_of_life.dart';
 import 'package:aula/data/chat.dart';
 import 'package:aula/data/message.dart';
 import 'package:aula/data/person.dart';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -178,4 +179,3 @@ class ChatCard extends StatelessWidget {
     );
   }
 }
-

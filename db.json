@@ -1,6 +1,19 @@
 {
-  "posts": [
-    {
+  "people": {
+    "THISPERSONSUUID": {
+      "firstname": "Sebastian",
+      "lastname": "Klausen",
+      "photo": "fakeface-004"
+    },
+    "THISOTHERPERSONSUUID": {
+      "firstname": "Philip",
+      "lastname": "Damgaard",
+      "photo": "fakeface-009"
+    }
+  },
+
+
+  "posts": [{
       "author": {
         "firstname": "Sebastian",
         "lastname": "Klausen",
@@ -52,51 +65,46 @@
 
 
 
-  "chats": [
-    {
-      "author": {
+  "chats": [{
+    "name": "Lorem ipsum dolor sit amet",
+    "participants": [{
         "firstname": "Cecilie",
         "lastname": "Poulsen",
         "photo": "fakeface-006"
       },
-      "title": "Lorem ipsum dolor sit amet",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    },
-    {
-      "author": {
-        "firstname": "Malene",
-        "lastname": "Jakobsen",
-        "photo": "fakeface-001"
-      },
-      "title": "Lorem ipsum dolor sit amet",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    },
-    {
-      "author": {
-        "firstname": "Sebastian",
-        "lastname": "Klausen",
-        "photo": "fakeface-004"
-      },
-      "title": "Lorem ipsum dolor sit amet",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    },
-    {
-      "author": {
+      {
         "firstname": "Anders",
         "lastname": "Schultz",
         "photo": "fakeface-011"
+      }
+    ],
+    "messages": [{
+        "author": {
+          "firstname": "Cecilie",
+          "lastname": "Poulsen",
+          "photo": "fakeface-006"
+        },
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+        "date": "2020-05-22 20:00:00"
       },
-      "title": "Lorem ipsum dolor sit amet",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    },
-    {
-      "author": {
-        "firstname": "Philip",
-        "lastname": "Damgaard",
-        "photo": "fakeface-009"
+      {
+        "author": {
+          "firstname": "Cecilie",
+          "lastname": "Poulsen",
+          "photo": "fakeface-006"
+        },
+        "content": "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "date": "2020-05-22 20:00:00"
       },
-      "title": "Lorem ipsum dolor sit amet",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    }
-  ]
+      {
+        "author": {
+          "firstname": "Anders",
+          "lastname": "Schultz",
+          "photo": "fakeface-011"
+        },
+        "content": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "date": "2020-05-22 20:00:00"
+      }
+    ]
+  }]
 }
