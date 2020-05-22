@@ -32,8 +32,8 @@ class BulaAppBar extends StatelessWidget implements PreferredSizeWidget {
             ]
           : null,
     );
-
     return appBar;
+    
   }
 
   @override

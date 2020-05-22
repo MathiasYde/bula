@@ -1,11 +1,15 @@
 import 'dart:convert';
 
-import 'package:aula/components/app_bar.dart';
+import 'dart:ui';
+
 import 'package:aula/components/quality_of_life.dart';
-import 'package:aula/components/quick_actions.dart';
+import 'package:aula/data/chat.dart';
+import 'package:aula/data/message.dart';
 import 'package:aula/data/person.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import 'chat_screen.dart';
 
 class MessagesScreen extends StatefulWidget {
   @override
@@ -15,7 +19,7 @@ class MessagesScreen extends StatefulWidget {
 class _MessagesScreenState extends State<MessagesScreen> {
   Future<List<Message>> fetchChats() async {
     final response = await http
-        .get("https://my-json-server.typicode.com/MathiasYde/bula/messages");
+        .get("https://my-json-server.typicode.com/MathiasYde/bula/chats");
 
     if (response.statusCode == 200) {
       List<dynamic> parsed = json.decode(response.body);
@@ -36,80 +40,128 @@ class _MessagesScreenState extends State<MessagesScreen> {
   @override
   Widget build(BuildContext context) {
     print("Building messages screen");
-    return FutureBuilder<List<Message>>(
-      future: messages,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return ListView.builder(
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index) {
-              return ChatCard(
-                messages: [
-                  Message(
-                    author: Person(firstname: "Mathias", lastname: "Yde"),
-                    content: "Bitch get the fuck away from me",
+    return SafeArea(
+      child: FutureBuilder<List<Message>>(
+        future: messages,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                return ChatCard(
+                  chat: Chat(
+                    name: "The gays",
+                    messages: [
+                      Message(
+                        author: Person(firstname: "John", lastname: "Smith"),
+                        content: "Are you ready for taco night?",
+                      ),
+                    ],
                   ),
-                ],
-              );
-            },
-          );
-        }
-        if (snapshot.hasError) {
-          return ErrorCard(snapshot.error);
-        }
-        return Center(child: CircularProgressIndicator());
-      },
+                );
+              },
+            );
+          }
+          if (snapshot.hasError) {
+            return ErrorCard(snapshot.error);
+          }
+          return Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
 }
 
 class ChatCard extends StatelessWidget {
-  final List<Message> messages;
+  final Chat chat;
 
   const ChatCard({
     Key key,
-    this.messages,
+    this.chat,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onLongPress: () {
-          Scaffold.of(context).showBottomSheet(
-            (context) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("Choose an action for ${messages[0].author.fullname}", textScaleFactor: 1.5 ,style: TextStyle(fontWeight: FontWeight.bold)),
-                ),
-                Divider(),
-                ListTile(
-                  leading: Icon(Icons.error),
-                  title: Text("Report"),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: Icon(Icons.remove),
-                  title: Text("Leave"),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: Icon(Icons.volume_mute),
-                  title: Text("Silence"),
-                  onTap: () {},
-                ),
-              ],
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatScreen(chat: chat),
             ),
-            shape: RoundedRectangleBorder(),
           );
         },
-        title: Text("${messages[0].author.fullname}"),
-        subtitle: Text("${messages[0].content}"),
+        onLongPress: () {
+          Scaffold.of(context).showBottomSheet(
+            (context) => Container(
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    height: 40,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          offset: Offset(0, 3),
+                          blurRadius: 2,
+                          spreadRadius: 0.5,
+                        )
+                      ],
+                      color: Colors.grey[300],
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(16)),
+                    ),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: Text(
+                          "Choose an action for ${chat.messages[0].author.fullname}",
+                          textScaleFactor: 1.5,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.error),
+                    title: Text("Report"),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.remove),
+                    title: Text("Leave"),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.volume_mute),
+                    title: Text("Silence"),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+        title: Text("${chat.messages[0].author.fullname}"),
+        subtitle: Text("${chat.messages[0].content}"),
         leading: Tooltip(
-          message: "${messages[0].author.fullname}",
+          message: "${chat.messages[0].author.fullname}",
           child: Container(
             width: 40,
             height: 40,
@@ -117,7 +169,7 @@ class ChatCard extends StatelessWidget {
               shape: BoxShape.circle,
               image: DecorationImage(
                 fit: BoxFit.fill,
-                image: messages[0].author.avatar,
+                image: chat.messages[0].author.avatar,
               ),
             ),
           ),
@@ -127,40 +179,3 @@ class ChatCard extends StatelessWidget {
   }
 }
 
-class Chat {
-  String name;
-  List<Person> participants;
-  List<Message> messages;
-
-  Chat({this.name, this.participants, this.messages});
-
-  Chat.fromJson(Map<String, dynamic> data)
-      : name = data["name"],
-        participants = data["participants"],
-        messages = data["messages"];
-
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "participants": participants,
-        "messages": messages,
-      };
-}
-
-class Message {
-  Person author;
-  String content;
-  String date;
-
-  Message({this.author, this.content, this.date});
-
-  Message.fromJson(Map<String, dynamic> data)
-      : author = Person.fromJson(data["author"]),
-        content = data["content"],
-        date = data["date"];
-
-  Map<String, dynamic> toJson() => {
-        "author": author,
-        "content": content,
-        "date": date,
-      };
-}

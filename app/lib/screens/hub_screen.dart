@@ -11,6 +11,7 @@ class HubScreen extends StatefulWidget {
 
 class _HubScreenState extends State<HubScreen> {
   int pageIndex = 0;
+  QuickActions quickActions = QuickActions();
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,8 @@ class _HubScreenState extends State<HubScreen> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {
+            Navigator.maybePop(context);
+            quickActions.pop();
             pageIndex = index;
           });
         },
@@ -38,7 +41,7 @@ class _HubScreenState extends State<HubScreen> {
           ),
         ],
       ),
-      floatingActionButton: QuickActions(),
+      floatingActionButton: quickActions,
       body: IndexedStack(
         index: pageIndex,
         children: [

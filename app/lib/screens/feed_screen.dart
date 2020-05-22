@@ -82,8 +82,12 @@ class FeedPostCard extends StatelessWidget {
     return Card(
       child: ListTile(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => Post(post: post)));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Post(post: post),
+            ),
+          );
         },
         title: Text(post.title),
         subtitle: Text(post.description),

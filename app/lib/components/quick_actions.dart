@@ -2,6 +2,13 @@ import 'package:flutter/Material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class QuickActions extends StatelessWidget {
+  SpeedDial dial;
+  ValueNotifier<bool> state = ValueNotifier(false);
+
+  void pop() {
+    state.value = false;
+  }
+
   Widget build(BuildContext context) {
     print("Building QuickActions");
     return SpeedDial(
