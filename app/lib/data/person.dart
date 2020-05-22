@@ -6,7 +6,7 @@ class Person {
   String get fullname => "$firstname $lastname";
 
   //Replace this with an Image.network Widget in production
-  get avatar => AssetImage("assets/fake-faces/$photo.jpg");
+  get avatar => (photo != null) ? AssetImage("assets/fake-faces/$photo.jpg") : AssetImage("assets/images/default-photo.png");
 
   SocialRole socialrole;
 
