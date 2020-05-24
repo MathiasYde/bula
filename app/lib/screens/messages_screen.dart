@@ -18,32 +18,32 @@ class MessagesScreen extends StatefulWidget {
 }
 
 class _MessagesScreenState extends State<MessagesScreen> {
-  Future<List<Message>> fetchChats() async {
+  Future<List<Chat>> fetchChats() async {
     final response = await http
         .get("https://my-json-server.typicode.com/MathiasYde/bula/chats");
 
     if (response.statusCode == 200) {
       List<dynamic> parsed = json.decode(response.body);
-      return parsed.map((e) => Message.fromJson(e)).toList();
+      return parsed.map((e) => Chat.fromJson(e)).toList();
     } else {
       throw Exception("Failed to fetch messages");
     }
   }
 
-  Future<List<Message>> messages;
+  Future<List<Chat>> chats;
 
   @override
   void initState() {
     super.initState();
-    messages = fetchChats();
+    chats = fetchChats();
   }
 
   @override
   Widget build(BuildContext context) {
     print("Building messages screen");
     return SafeArea(
-      child: FutureBuilder<List<Message>>(
-        future: messages,
+      child: FutureBuilder<List<Chat>>(
+        future: chats,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(

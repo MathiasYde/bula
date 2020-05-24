@@ -10,8 +10,8 @@ class Chat {
 
   Chat.fromJson(Map<String, dynamic> data)
       : name = data["name"],
-        participants = data["participants"],
-        messages = data["messages"];
+        participants = data["participants"].map<Person>((e) => Person.fromJson(e)).toList(),
+        messages = data["messages"].map<Message>((e) => Message.fromJson(e)).toList();
 
   Map<String, dynamic> toJson() => {
         "name": name,
