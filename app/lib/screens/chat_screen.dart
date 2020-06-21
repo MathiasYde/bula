@@ -13,6 +13,12 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BulaAppBar(showActions: false),
+      body: ListView.builder(
+        itemCount: chat.messages.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(child: Text("${chat.messages[0].content}"));
+        },
+      ),
     );
   }
 }

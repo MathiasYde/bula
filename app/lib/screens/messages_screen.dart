@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:aula/components/quality_of_life.dart';
+import 'package:aula/PageRouteTransitions.dart';
 import 'package:aula/data/chat.dart';
 import 'package:aula/data/message.dart';
 import 'package:aula/data/person.dart';
@@ -81,6 +82,70 @@ class ChatCard extends StatelessWidget {
     this.chat,
   }) : super(key: key);
 
+  Widget buildBottomSheet(BuildContext context, chat) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 40,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  offset: Offset(0, 3),
+                  blurRadius: 2,
+                  spreadRadius: 0.5,
+                )
+              ],
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+            ),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: Text(
+                  "Choose an action for ${chat.messages[0].author.fullname}",
+                  textScaleFactor: 1.5,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.error),
+            title: Text("Report"),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.remove),
+            title: Text("Leave"),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.volume_mute),
+            title: Text("Silence"),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -88,75 +153,16 @@ class ChatCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => ChatScreen(chat: chat),
+            SlidePageRouteTransition(
+              page: ChatScreen(chat: chat),
+              curve: Curves.fastLinearToSlowEaseIn,
+              direction: AxisDirection.left,
             ),
           );
         },
         onLongPress: () {
           Scaffold.of(context).showBottomSheet(
-            (context) => Container(
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    height: 40,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          offset: Offset(0, 3),
-                          blurRadius: 2,
-                          spreadRadius: 0.5,
-                        )
-                      ],
-                      color: Colors.grey[300],
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(16)),
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16.0),
-                        child: Text(
-                          "Choose an action for ${chat.messages[0].author.fullname}",
-                          textScaleFactor: 1.5,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.error),
-                    title: Text("Report"),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.remove),
-                    title: Text("Leave"),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.volume_mute),
-                    title: Text("Silence"),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ),
-            ),
+            (context) => buildBottomSheet(context, chat),
           );
         },
         title: Text("${chat.messages[0].author.fullname}"),
